@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "Corsários do Caribe",
+    "slug": "corsarios-do-caribe",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "corsariosdocaribe",
+    "assetBundlePatterns": ["**/*"],
+    "ios": { "supportsTablet": true, "bundleIdentifier": "com.k3lvinbr.corsariosdocaribe" },
+    "android": { "package": "com.k3lvinbr.corsariosdocaribe" },
+    "web": { "bundler": "metro", "name": "Corsários do Caribe", "shortName": "Corsários" },
+    "plugins": ["expo-status-bar"]
+  }
+}
