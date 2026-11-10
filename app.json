@@ -9,7 +9,6 @@
     "assetBundlePatterns": ["**/*"],
     "ios": { "supportsTablet": true, "bundleIdentifier": "com.k3lvinbr.corsariosdocaribe" },
     "android": { "package": "com.k3lvinbr.corsariosdocaribe" },
-    "web": { "bundler": "metro", "name": "Corsários do Caribe", "shortName": "Corsários" },
-    "plugins": ["expo-status-bar"]
+    "web": { "bundler": "metro", "name": "Corsários do Caribe", "shortName": "Corsários" }
   }
 }
