@@ -48,7 +48,7 @@ function CaribbeanMap({ selectedId, onSelect }: { selectedId: string; onSelect: 
 export function GameShell() {
   const { width } = useWindowDimensions();
   const compact = width < 760;
-  const { state, hydrated, selectPort, startVoyage, claimVoyage } = useGame();
+  const { state, hydrated, selectPort, startVoyage, claimVoyage, equipItem } = useGame();
   const [screen, setScreen] = useState<Screen>('navio');
   const [now, setNow] = useState(Date.now());
   useEffect(() => { const id = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(id); }, []);
@@ -71,7 +71,7 @@ export function GameShell() {
     </View>
 
     <View style={[styles.layout, compact && styles.layoutCompact]}>
-      <View style={styles.sidebar}>
+      <View style={[styles.sidebar, compact && styles.sidebarCompact]}>
         {(['navio','mapa','inventario','melhorias'] as Screen[]).map((key, i) => <TouchableOpacity key={key} onPress={() => setScreen(key)} style={[styles.navItem, screen === key && styles.navItemActive]}>
           <Text style={styles.navIcon}>{['⛵','🗺️','🎒','⚙️'][i]}</Text><Text style={styles.navLabel}>{['MEU NAVIO','MAPA MUNDI','BAÚS & LOOT','MELHORIAS'][i]}</Text>
         </TouchableOpacity>)}
@@ -115,7 +115,7 @@ export function GameShell() {
           <View style={styles.card}><Text style={styles.cardTitle}>EQUIPAMENTOS RESGATADOS</Text>
             {state.inventory.length === 0 ? <Text style={styles.muted}>Seu baú está vazio. Complete viagens para encontrar equipamentos e tesouros.</Text> : state.inventory.map(item => <View key={item.id} style={styles.lootRow}>
               <Text style={{fontSize:28}}>{item.icon}</Text><View style={{flex:1}}><Text style={[styles.text,{color:rarityColor(item.rarity)}]}>{item.name}</Text><Text style={styles.muted}>{item.rarity} · ⚔️ {item.attack} · 🛡️ {item.defense} · 🍀 {item.luck}</Text></View>
-              <PixelButton label="EQUIPAR" onPress={() => useGame().equipItem(item.id, item.slot)} />
+              <PixelButton label="EQUIPAR" onPress={() => equipItem(item.id, item.slot)} />
             </View>)}
           </View>
           <View style={styles.card}><Text style={styles.cardTitle}>SLOTS DO PERSONAGEM</Text>{(['head','coat','weapon','boots','ring','amulet'] as EquipmentSlot[]).map(slot => <Text key={slot} style={styles.text}>{SLOT_LABELS[slot]}: {state.inventory.find(i => i.id === state.equipped[slot])?.name ?? 'Vazio'}</Text>)}</View>
@@ -141,7 +141,8 @@ const styles = StyleSheet.create({
   layout: { flex: 1, flexDirection: 'row', gap: 10, minHeight: 560 },
   layoutCompact: { flexDirection: 'column-reverse' },
   sidebar: { width: 104, backgroundColor: C.panel, borderWidth: 2, borderColor: C.line, borderRadius: 8, justifyContent: 'space-around', paddingVertical: 6 },
-  navItem: { alignItems: 'center', paddingVertical: 12, paddingHorizontal: 4, borderBottomWidth: 1, borderBottomColor: '#52717a' },
+  sidebarCompact: { width: '100%', flexDirection: 'row', paddingVertical: 0 },
+  navItem: { flex: 1, alignItems: 'center', paddingVertical: 12, paddingHorizontal: 4, borderBottomWidth: 1, borderBottomColor: '#52717a' },
   navItemActive: { backgroundColor: '#3c6871' }, navIcon: { fontSize: 27 }, navLabel: { color: C.text, fontSize: 9, fontWeight: '900', textAlign: 'center', marginTop: 5 },
   content: { flex: 1, backgroundColor: '#0c718b', borderRadius: 8 }, contentInner: { padding: 12, gap: 10 },
   heading: { color: C.text, fontSize: 20, fontWeight: '900', letterSpacing: 1, textShadowColor: '#18313a', textShadowRadius: 3 },
