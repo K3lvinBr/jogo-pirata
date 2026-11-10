@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Image, Pressable, StatusBar, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import Svg, { Circle, Defs, Ellipse, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 
 const EQUIPMENT = [
@@ -99,7 +99,7 @@ export default function App() {
   return <View style={styles.root}>
     <StatusBar hidden/>
     <View style={{ width: gameWidth, height: gameHeight, overflow: 'hidden', backgroundColor: '#078da6' }}>
-      <OceanScene/>
+      <Image source={require('./assets/images/ocean-loop.gif')} resizeMode="cover" style={StyleSheet.absoluteFillObject} />
       <View style={styles.topBar}>
         <View style={styles.avatar}><Text style={styles.avatarText}>🏴‍☠️</Text></View>
         <View style={styles.resource}><Text style={styles.resourceValue}>🪙 {gold >= 1000 ? (gold/1000).toFixed(1).replace('.', ',') + 'k' : gold}</Text><Text style={styles.resourceName}>OURO</Text></View>
